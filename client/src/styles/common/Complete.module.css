@@ -1,0 +1,66 @@
+/* 전체 레이아웃 */
+.root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 1200px;
+    padding: 30px 20px;
+    box-sizing: border-box;
+    min-height: 90vh;
+  }
+
+
+.completeContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 50px;
+}
+
+.checkIcon {
+    width: 100px;
+    height: 100px;
+}
+
+.completeText {
+    font-size: 2rem;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+}
+
+/* 네비게이션 버튼 */
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.homeButton {
+    padding: 1rem 2.8rem;
+    border-radius: 7px;
+    background-color: #2563EB;
+    color: white;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.homeButton:hover {
+    background-color: #1E40AF;
+    transform: scale(1.05);
+}
+
+/* 진행 그래프 */
+.graph {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}

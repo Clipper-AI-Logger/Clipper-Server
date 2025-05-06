@@ -1,0 +1,303 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    align-items: center;
+    justify-content: center;
+}
+
+.root h1 {
+    font-size: 3rem;
+    font-weight: bold; /* 글씨체를 볼드체로 설정 */
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: bold; /* 글씨체를 볼드체로 설정 */
+}
+
+.logoImg {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 40px; /* 로고와 콘텐츠 사이의 간격 추가 */
+}
+
+.logoImg img {
+    width: 450px; /* 로고 이미지의 너비 */
+    height: auto; /* 높이는 비율에 맞게 자동 조정 */
+    max-width: 100%; /* 부모 요소 크기를 초과하지 않도록 설정 */
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+
+.content .freeDesc {
+    text-align: center; /* 텍스트 중앙 정렬 */
+    font-size: 1.2rem;
+    line-height: 1.8; /* 줄 간격 */
+    color: #6b7280;
+    margin-bottom: 20px; /* 콘텐츠 아래 여백 */
+}
+
+p {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: #6b7280;
+}
+
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.start-button {
+    padding: 1rem 2.8rem; /* 좌우 공간을 늘리기 위해 오른쪽과 왼쪽 패딩 값을 조정 */
+    border-radius: 7px;
+    background-color: #2563EB;
+    color: white;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: bold; /* 글씨체를 볼드체로 설정 */
+    cursor: pointer;
+}
+
+.modify-button {
+    padding: 1rem 2.8rem; /* 좌우 공간을 늘리기 위해 오른쪽과 왼쪽 패딩 값을 조정 */
+    border-radius: 7px;
+    background-color: white;
+    color: #6B7280;
+    border: 1px solid #6B7280; /* 테두리 두께와 색상 설정 */
+    font-size: 1.1rem;
+    font-weight: bold; /* 글씨체를 볼드체로 설정 */
+    cursor: pointer;
+}
+
+.usage {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    margin-top: 40px; /* 위쪽 간격 추가 */
+}
+
+.step {
+    display: flex;
+    flex-direction: row; /* 데스크톱: 가로 배치 */
+    width: 100%;
+    align-items: center;
+    justify-content: center; /* 전체 중앙 정렬 */
+    gap: 200px; /* 사진과 설명 간 간격 */
+    margin: 100px 0; /* 상하 간격 추가 */
+}
+
+/* 데스크톱(기본)에서: 이미지(order:1) → 설명(order:2) */
+.screen-container {
+    position: relative;
+    width: 502px;
+    height: auto;
+    order: 1; /* 사진이 먼저 (왼쪽) */
+}
+.desc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    gap: 5px;
+    order: 2; /* 설명이 나중 (오른쪽) */
+}
+
+.screenImg {
+    width: 100%;
+    height: auto;
+    z-index: 2;
+}
+
+.step .icon {
+    width: 30px; /* 아이콘 크기 */
+    height: 30px;
+    margin: 0 auto; /* 아이콘 가로 중앙 정렬 */
+}
+
+/* 버튼 스타일 */
+.start-button,
+.modify-button {
+    padding: 1rem 2.8rem;
+    border-radius: 7px;
+    background-color: #2563EB;
+    color: white;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.modify-button {
+    background-color: white;
+    color: #6B7280;
+    border: 1px solid #6B7280;
+}
+
+.start-button:hover,
+.modify-button:hover {
+    transform: scale(1.05); /* 크기를 5% 확대 */
+    background-color: #1E4DB7; /* 호버 시 색상 변화 (start-button) */
+}
+
+.modify-button:hover {
+    background-color: #F1F5F9;
+    color: #4B5563;
+}
+
+/* 아이콘 스타일 */
+.step .icon {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+}
+.step .icon:hover {
+    transform: scale(1.2); /* 크기를 20% 확대 */
+}
+
+/* Q&A */
+
+.faq-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.faq-item {
+    background: #F8F8F8;
+    border: 1px solid #F8F8F8;
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.faq-item.active {
+    background: #F8F8F8;
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #1f2937;
+}
+
+.faq-toggle-icon {
+    width: 15px;
+    height: auto;
+}
+
+.faq-toggle {
+    font-size: 1.2rem;
+    color: #6b7280;
+}
+
+/* 답변 애니메이션 추가 */
+.faq-answer-wrapper {
+    overflow: hidden; /* 답변이 보이지 않도록 설정 */
+    max-height: 0; /* 초기 상태에서 높이를 0으로 설정 */
+    transition: max-height 0.3s ease, padding 0.3s ease; /* 애니메이션 추가 */
+}
+
+.faq-answer-wrapper.open {
+    max-height: 200px; /* 열렸을 때 최대 높이 설정 */
+    padding-top: 10px; /* 열린 상태에서 위쪽 여백 추가 */
+}
+
+.faq-answer {
+    font-size: 1rem;
+    color: #4b5563;
+    line-height: 1.5;
+}
+
+
+/* =======================================
+   반응형 (모바일/태블릿) 미디어쿼리
+   768px 이하일 때
+   ======================================= */
+@media (max-width: 768px) {
+  .step {
+    flex-direction: column;
+    gap: 40px;
+    margin: 50px 0;
+  }
+
+  .desc {
+    order: 1;
+  }
+  .screen-container {
+    order: 2;
+    width: 80%;
+    max-width: 400px;
+  }
+  
+  .screenImg {
+    width: 235px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .desc {
+    width: 90%;
+    margin-top: 20px;
+  }
+
+  .buttons {
+    flex-direction: row;
+    gap: 1rem; 
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .root h1 {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .content .freeDesc {
+    font-size: 1rem;
+  }
+
+  .logoImg img {
+    width: 300px;
+    max-width: 90%;
+  }
+}

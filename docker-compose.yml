@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  express:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: express-app
+    ports:
+      - "8000:8000"
+    environment:
+      - NODE_ENV=production
+      - PORT=8000
+    networks:
+      - app-network
+    volumes:
+      - static-files:/app/public
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx-proxy
+    depends_on:
+      - express
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - app-network
+    volumes:
+      - static-files:/usr/share/nginx/html
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+
+networks:
+   app-network:
+     driver: bridge
+
+volumes:
+  static-files:
+

@@ -1,0 +1,10 @@
+.spinnerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .spinnerImage {
+    width: 80px;  /* 원하는 크기로 조절 */
+    height: 80px;
+  }

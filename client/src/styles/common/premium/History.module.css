@@ -1,0 +1,136 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 1200px;
+    padding: 30px 20px;
+    box-sizing: border-box;
+    min-height: 90vh;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.timelineContainer {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.timelineItem {
+    position: relative;
+    border-radius: 5px;
+    border: 1px solid #CACACA;
+    margin: 15px 0;
+    margin-right: 16px;
+}
+
+.timelineContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+.leftGroup {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.rightGroup {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.timelineTitle {
+    font-weight: 400;
+    font-size: 0.9em
+}
+.timelineDate {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.trashIcon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s ease;
+    margin-left: 20px;
+    cursor: pointer;
+}
+.trashIcon:hover {
+    transform: scale(1.1);
+}
+
+.fileIcon {
+    width: 20px;
+    height: 20px;
+}
+
+.buttonWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-right: 30px;
+    width: 100%;
+}
+
+.startButton {
+    padding: 1rem 5rem;
+    border-radius: 10px;
+    background-color: #2563EB;
+    color: white;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.startButton:hover {
+    background-color: #1E40AF;
+    transform: scale(1.05);
+}
+
+.startButton:disabled {
+    background-color: #D1D5DB;
+    color: #9CA3AF;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    opacity: 0.8;
+}
+
+.startButton:disabled:hover {
+    background-color: #D1D5DB;
+}
+
+
+.graph {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+}
+
+.selectedTimelineItem {
+    border: 2.5px solid #CACACA;
+    background-color: rgba(202, 202, 202, 0.3);
+}
+
+.emptyMessage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: #FF0000;
+  font-size: 1.2rem;
+  text-align: center;
+  line-height: 1.8;
+}

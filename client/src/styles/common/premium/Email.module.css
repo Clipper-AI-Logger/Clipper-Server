@@ -1,0 +1,192 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 1200px;
+    padding: 30px 20px;
+    box-sizing: border-box;
+    min-height: 90vh;
+  }
+
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.selectionButtons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 0; 
+}
+
+.selectionButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.3rem 1.5rem;
+    border: 1px solid #B0B0B0;
+    background-color: transparent;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.selectionButton:hover {
+  background-color: #e0e7ff;
+}
+
+.active {
+  background-color: #B0B0B0;
+}
+
+.buttonText {
+    margin-top: 3px;
+}
+
+
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.inputContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    max-width: 720px;
+}
+
+.input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 55px;
+    border: 1px solid #F1F1F1;
+    border-radius: 15px;
+    background-color: #fff;
+    padding: 0 1rem;
+    gap: 1rem;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.humanIcon {
+    width: 15px;
+    height: 15px;
+    margin-right: 15px;
+}
+
+.inputField {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1.2rem;
+    color: black;
+    background: transparent;
+}
+
+.inputField::placeholder {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #C0C0C0;
+}
+
+
+.buttonWrapper {
+    margin-top: 20px;
+}
+
+.startButton {
+    padding: 1rem 5rem;
+    border-radius: 10px;
+    background-color: #2563EB;
+    color: white;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.startButton:hover {
+    background-color: #1E40AF;
+    transform: scale(1.05);
+}
+
+/* 비활성화된 상태 */
+.startButton:disabled {
+    background-color: #D1D5DB;
+    color: #9CA3AF;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    opacity: 0.8;
+}
+
+.startButton:disabled:hover {
+    background-color: #D1D5DB;
+}
+
+/* 진행 그래프 */
+.graph {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+}
+
+.error {
+    color: red;
+    margin-top: 2px;  /* modified: closer to the button */
+    font-size: 1rem;
+    max-width: 720px;
+    text-align: left;
+}
+
+/* =======================
+   반응형 (예: 768px 이하)
+   ======================= */
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
+  
+  .inputField {
+    font-size: 1rem;
+  }
+
+  .startButton {
+    font-size: 1rem;
+    padding: 0.8rem 2rem;
+  }
+
+  .graph {
+    margin-top: 40px;
+  }
+}
