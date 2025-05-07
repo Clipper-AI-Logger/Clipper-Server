@@ -10,7 +10,7 @@ export default function History({ data, selectedUuid, onSelect, onRemove }) {
         </div>
       ) : (
         data.map((item, idx) => {
-          const { uuid, video_name, date } = item;
+          const { uuid, title, date } = item;
           const isSelected = selectedUuid === uuid;
           return (
             <div
@@ -25,7 +25,7 @@ export default function History({ data, selectedUuid, onSelect, onRemove }) {
                     alt="Video Icon"
                     className={styles.fileIcon}
                   />
-                  <div className={styles.timelineTitle}>{video_name}</div>
+                  <div className={styles.timelineTitle}>{title}</div>
                 </div>
                 <div className={styles.rightGroup}>
                   <div className={styles.timelineDate}>{date}</div>
