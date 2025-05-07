@@ -61,29 +61,28 @@ module.exports = class Video {
 
         const formData = new FormData();
 
-        formData.append('emails', this.email);
+        formData.append('reqId', this.reqId);
+        formData.append('email', this.email);
         formData.append('title', this.title);
-        formData.append('uuid',uuid);
+        formData.append('uuid', uuid);
         formData.append('subtitle', this.subtitle);
         formData.append('corrections', this.corrections);
         formData.append('plus', this.plus);
         formData.append('minus', this.minus);
-        formData.append('reqId', uuidv4());
       
         videos.forEach((video, i) => {
             formData.append('videos', video.data, { filename: video.filename });
         });
 
-        console.log('formData emails : ', formData._streams);
-
-        // try {
-        //     await fetch('http://34.64.57.87:8000/files', {
-        //         method: 'POST',
-        //         body: formData
-        //     });
-        // } catch {
-        //     console.log("Error while sending Data to AI server")
-        // }
+        try {
+            console.log('formData emails : ', formData._streams);
+            // await fetch('http://34.64.57.87:8000/files', {
+            //     method: 'POST',
+            //     body: formData
+            // });
+        } catch {
+            console.log("Error while sending Data to AI server")
+        }
         
         return true;
     }

@@ -3,6 +3,7 @@ const EditLog = require('../service/editLog-service.js');
 const { v4: uuidv4 } = require('uuid');
 
 module.exports.uploadVideos = async (req, res, next) => {
+    
     const reqId = uuidv4();
 
     const { email, subtitle, title, videos: videoInfo } = JSON.parse(req.body.data);

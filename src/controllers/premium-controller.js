@@ -1,6 +1,7 @@
 const PremiumService = require('../service/premium-service.js');
 const Video = require('../service/video-service.js');
 const EditLog = require('../service/editLog-service.js');
+const { v4: uuidv4 } = require('uuid');
 
 module.exports.verifySchool = async (req, res, next) => {
 
@@ -99,31 +100,39 @@ module.exports.deleteHistory = async (req, res, next) => {
     }
 };
 
-module.exports.receiveVideos = async (req, res, next) => {
+module.exports.uploadVideosForModify = async (req, res, next) => {
 
-    const { email, subtitle, title, uuid, corrections, plus, minus, videos: videoInfo } = JSON.parse(req.body.data);
+    const reqId = uuidv4();
 
-    let videoPaths = [];
+    const { email, title, subtitle, uuid, corrections, plus, minus, videos: videoInfo } = JSON.parse(req.body.data);
 
-    if (!email || !title || !subtitle || !uuid || !Array.isArray(videoInfo) || videoInfo.length === 0) {
+    let videoPaths = req.files.map(file => file.path);
+
+    if (!email || !title || !uuid || !Array.isArray(videoInfo) || videoInfo.length === 0) {
         return res.json({ success: false, message: '입력 필드를 모두 입력해주세요' });
     }
-
     if (!req.files || req.files.length === 0) {
         return res.json({ success: false, message: '최소 하나 이상의 동영상이 필요합니다.' });
     }
-        
+
+    const modificationDateTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    const modifiedTitle = `${title}(수정_${modificationDateTime})`;
     
-    const videoService = new Video(email, title, subtitle, corrections, plus, minus);
+    const videoService = new Video(reqId, email, modifiedTitle, subtitle, corrections, plus, minus);
 
     try {
 
-        videoPaths = req.files.map(file => file.path);
         const videos = await videoService.readFiles(videoPaths);
         const sendVideoResult = await videoService.sendFileForModify(videos, uuid);
 
-        if (sendVideoResult) return res.status(200).json({ success: true, message: '수정이 시작되었습니다' });
-        else return res.json({ success: false, message: '영상이 제대로 업로드되지 않았습니다.' });
+        const editLogService = new EditLog();
+        const editLogResult = await editLogService.saveEditLog(reqId, email, modifiedTitle);
+
+        if (sendVideoResult && editLogResult) {
+            return res.status(200).json({ success: true, message: '수정이 시작되었습니다' });
+        } else {
+            return res.json({ success: false, message: '영상이 제대로 업로드되지 않았습니다.' });
+        }
         
     } catch (error) {
         console.error(error);
