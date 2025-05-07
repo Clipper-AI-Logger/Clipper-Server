@@ -43,30 +43,18 @@ module.exports = class Video {
             formData.append('videos', video.data, { filename: video.filename });
         });
 
-        console.log('formData emails : ', formData._streams);
-
         try {
-            await fetch('http://34.64.57.87:8000/files', {
-                method: 'POST',
-                body: formData
-            });
+            console.log('formData emails : ', formData._streams);
+            // await fetch('http://34.64.57.87:8000/files', {
+            //     method: 'POST',
+            //     body: formData
+            // });
 
-            await fetch(`${dataURL}/add-list`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    uuid: reqId,
-                    nlp_list: [],
-                    cv_list: []
-                })
-            });
         } catch (error) {
             console.log("Error while sending Data to AI server or adding to list:", error);
         }
         
-        return true;
+        return {success: true, uuid: reqId};
     }
 
     async sendFileForModify(videos, uuid) {

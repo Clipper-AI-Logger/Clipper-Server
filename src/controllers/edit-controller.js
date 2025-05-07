@@ -1,15 +1,13 @@
 const Video = require('../service/video-service.js');
+const EditLog = require('../service/editLog-service.js');
 
-module.exports.receiveVideos = async (req, res, next) => {
+module.exports.uploadVideos = async (req, res, next) => {
 
     const { email, subtitle, title, videos: videoInfo } = JSON.parse(req.body.data);
-
-    let videoPaths = [];
 
     if (!email || !title || !subtitle || !Array.isArray(videoInfo) || videoInfo.length === 0) {
         return res.json({ success: false, message: '입력 필드를 모두 입력해주세요' });
     }
-
     if (!req.files || req.files.length === 0) {
         return res.json({ success: false, message: '최소 하나 이상의 동영상이 필요합니다.' });
     }
@@ -17,14 +15,21 @@ module.exports.receiveVideos = async (req, res, next) => {
     
     const videoService = new Video(email, title, subtitle);
 
-    try {
+    let videoPaths = req.files.map(file => file.path);
 
-        videoPaths = req.files.map(file => file.path);
+    try {
+        
         const videos = await videoService.readFiles(videoPaths);
         const sendVideoResult = await videoService.sendFile(videos);
 
-        if (sendVideoResult) return res.status(200).json({ success: true, message: '편집이 시작되었습니다' });
-        else return res.json({ success: false, message: '영상이 제대로 업로드되지 않았습니다.' });
+        const editLogService = new EditLog();
+        const editLogResult = await editLogService.saveEditLog(sendVideoResult.uuid, email, title, [], []);
+
+        if (sendVideoResult.success && editLogResult) {
+            return res.status(200).json({ success: true, message: '편집이 시작되었습니다' });
+        } else {
+            return res.json({ success: false, message: '영상이 제대로 업로드되지 않았습니다.' });
+        }
         
     } catch (error) {
         console.error(error);
