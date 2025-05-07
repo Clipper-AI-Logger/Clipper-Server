@@ -62,7 +62,7 @@ export default function GetEditHistory() {
         handleRoute("/premium/modify/2", { 
             email, 
             uuid: selectedUuid,
-            title: selectedItem?.video_name 
+            title: selectedItem?.title 
         });
     };
 

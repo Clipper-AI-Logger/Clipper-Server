@@ -63,10 +63,11 @@ class PremiumService {
     }
 
     async addPremiumUser(email, verificationCode) {
+        
         try {
             const beginDate = new Date();
             const expireDate = new Date(beginDate);
-            expireDate.setFullYear(expireDate.getFullYear() + 1); // 1년 유효기간
+            expireDate.setFullYear(expireDate.getFullYear() + 1);
 
             const query = 'INSERT INTO premium_user (email, verification_code, begin_date, expire_date) VALUES (?, ?, ?, ?)';
             await db.execute(query, [email, verificationCode, beginDate, expireDate]);
