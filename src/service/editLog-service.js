@@ -2,10 +2,10 @@ const db = require('../config/database');
 
 class EditLog {
     
-    async saveEditLog(uuid, email, videoName, nlpList, cvList) {
+    async saveEditLog(uuid, email, videoName) {
         try {
-            const query = 'INSERT INTO edit_log (uuid, email, video_name, nlp_list, cv_list) VALUES (?, ?, ?, ?, ?)';
-            await db.execute(query, [uuid, email, videoName, JSON.stringify(nlpList), JSON.stringify(cvList)]);
+            const query = 'INSERT INTO edit_log (uuid, email, video_name) VALUES (?, ?, ?)';
+            await db.execute(query, [uuid, email, videoName]);
             return true;
         } catch (error) {
             console.error('Error saving edit log:', error);

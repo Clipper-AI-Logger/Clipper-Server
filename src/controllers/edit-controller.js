@@ -5,7 +5,7 @@ module.exports.uploadVideos = async (req, res, next) => {
 
     const { email, subtitle, title, videos: videoInfo } = JSON.parse(req.body.data);
 
-    if (!email || !title || !subtitle || !Array.isArray(videoInfo) || videoInfo.length === 0) {
+    if (!email || !title || !Array.isArray(videoInfo) || videoInfo.length === 0) {
         return res.json({ success: false, message: '입력 필드를 모두 입력해주세요' });
     }
     if (!req.files || req.files.length === 0) {
@@ -23,7 +23,7 @@ module.exports.uploadVideos = async (req, res, next) => {
         const sendVideoResult = await videoService.sendFile(videos);
 
         const editLogService = new EditLog();
-        const editLogResult = await editLogService.saveEditLog(sendVideoResult.uuid, email, title, [], []);
+        const editLogResult = await editLogService.saveEditLog(sendVideoResult.uuid, email, title);
 
         if (sendVideoResult.success && editLogResult) {
             return res.status(200).json({ success: true, message: '편집이 시작되었습니다' });
