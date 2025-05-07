@@ -1,5 +1,6 @@
 const PremiumService = require('../service/premium-service.js');
 const Video = require('../service/video-service.js');
+const EditLog = require('../service/editLog-service.js');
 
 module.exports.verifySchool = async (req, res, next) => {
 
@@ -63,8 +64,8 @@ module.exports.getHistory = async (req, res, next) => {
     }
 
     try {
-        const premiumService = new PremiumService();
-        const history = await premiumService.getEditHistory(email);
+        const editLogService = new EditLog();
+        const history = await editLogService.getEditHistory(email);
 
         if (history.length === 0) {
             return res.json({ success: false, message: `${email}의 영상 편집 기록이 존재하지 않습니다.` });
@@ -85,8 +86,8 @@ module.exports.deleteHistory = async (req, res, next) => {
     }
 
     try {
-        const premiumService = new PremiumService();
-        const result = await premiumService.deleteHistory(uuid);
+        const editLogService = new EditLog();
+        const result = await editLogService.deleteHistory(uuid);
         
         if (!result.success) {
             return res.json({ success: false, message: result.message });

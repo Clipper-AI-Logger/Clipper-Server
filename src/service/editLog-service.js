@@ -15,13 +15,9 @@ class EditLog {
 
     async getEditHistory(email) {
         try {
-            const query = 'SELECT uuid, title, nlp_list, cv_list, timestamp FROM edit_log WHERE email = ? ORDER BY timestamp DESC';
+            const query = 'SELECT uuid, title, timestamp FROM edit_log WHERE email = ? ORDER BY timestamp DESC';
             const [rows] = await db.execute(query, [email]);
-            return rows.map(row => ({
-                ...row,
-                nlp_list: JSON.parse(row.nlp_list || '[]'),
-                cv_list: JSON.parse(row.cv_list || '[]')
-            }));
+            return rows
         } catch (error) {
             console.error('Error getting edit history:', error);
             return [];
