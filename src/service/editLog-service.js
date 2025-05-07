@@ -4,7 +4,7 @@ class EditLog {
     
     async saveEditLog(uuid, email, videoName) {
         try {
-            const query = 'INSERT INTO edit_log (uuid, email, video_name) VALUES (?, ?, ?)';
+            const query = 'INSERT INTO edit_log (uuid, email, title) VALUES (?, ?, ?)';
             await db.execute(query, [uuid, email, videoName]);
             return true;
         } catch (error) {
@@ -15,7 +15,7 @@ class EditLog {
 
     async getEditHistory(email) {
         try {
-            const query = 'SELECT uuid, video_name, nlp_list, cv_list, timestamp FROM edit_log WHERE email = ? ORDER BY timestamp DESC';
+            const query = 'SELECT uuid, title, nlp_list, cv_list, timestamp FROM edit_log WHERE email = ? ORDER BY timestamp DESC';
             const [rows] = await db.execute(query, [email]);
             return rows.map(row => ({
                 ...row,

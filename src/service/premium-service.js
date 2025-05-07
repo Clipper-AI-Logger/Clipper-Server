@@ -2,17 +2,6 @@ const db = require('../config/database');
 
 class PremiumService {
     
-    async saveEditLog(uuid, email, videoName, nlpList, cvList) {
-        try {
-            const query = 'INSERT INTO edit_log (uuid, email, video_name, nlp_list, cv_list) VALUES (?, ?, ?, ?, ?)';
-            await db.execute(query, [uuid, email, videoName, JSON.stringify(nlpList), JSON.stringify(cvList)]);
-            return true;
-        } catch (error) {
-            console.error('Error saving edit log:', error);
-            return false;
-        }
-    }
-
     async isPartnerSchool(email) {
         try {
             const domain = email.split('@')[1];
@@ -58,20 +47,6 @@ class PremiumService {
         }
     }
 
-    async getEditHistory(email) {
-        try {
-            const query = 'SELECT uuid, video_name, nlp_list, cv_list, timestamp FROM edit_log WHERE email = ? ORDER BY timestamp DESC';
-            const [rows] = await db.execute(query, [email]);
-            return rows.map(row => ({
-                ...row,
-                nlp_list: JSON.parse(row.nlp_list || '[]'),
-                cv_list: JSON.parse(row.cv_list || '[]')
-            }));
-        } catch (error) {
-            console.error('Error getting edit history:', error);
-            return [];
-        }
-    }
 
     async deleteHistory(uuid) {
         try {

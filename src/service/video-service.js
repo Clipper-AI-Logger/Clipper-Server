@@ -2,12 +2,11 @@ const fs = require('fs').promises;
 const path = require('path');
 const FormData = require('form-data');
 const { v4: uuidv4 } = require('uuid');
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-const dataURL = "http://localhost"
 
 module.exports = class Video {
     
-    constructor(email, title, subtitle, corrections, plus, minus) {
+    constructor(reqId, email, title, subtitle, corrections, plus, minus) {
+        this.reqId = reqId;
         this.email = email;
         this.title = title;
         this.subtitle = subtitle;
@@ -32,13 +31,14 @@ module.exports = class Video {
 
     async sendFile(videos) {
         const formData = new FormData();
-        const reqId = uuidv4();
         
+        formData.append('reqId', this.reqId);
+        formData.append('title', this.title);
         formData.append('emails', this.email);
-        formData.append('subtitle', this.title);
+        formData.append('title', this.title);
         formData.append('subtitle', this.subtitle);
-        formData.append('reqId', reqId);
-      
+       
+
         videos.forEach((video, i) => {
             formData.append('videos', video.data, { filename: video.filename });
         });
@@ -54,7 +54,7 @@ module.exports = class Video {
             console.log("Error while sending Data to AI server or adding to list:", error);
         }
         
-        return {success: true, uuid: reqId};
+        return true;
     }
 
     async sendFileForModify(videos, uuid) {
