@@ -1,5 +1,6 @@
 services:
   express:
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile
