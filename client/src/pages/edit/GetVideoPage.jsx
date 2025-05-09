@@ -18,16 +18,14 @@ export default function GetVideoPage() {
     const [subtitleChecked, setSubtitleChecked] = useState(false);
     const [swappingIndices, setSwappingIndices] = useState([]);
 
-    // 수정된 제한: 총 업로드 용량 30GB, 영상 하나당 30분 제한
-    const MAX_TOTAL_SIZE = 30 * 1024 * 1024 * 1024; // 30GB
+    const MAX_TOTAL_SIZE = 30 * 1024 * 1024 * 1024;
     const MAX_VIDEO_COUNT = 5;
-    const MAX_VIDEO_DURATION = 30 * 60; // 30분 (초)
+    const MAX_VIDEO_DURATION = 30 * 60;
 
     const truncateFileName = (name) => {
-
         const normalized = name.normalize('NFC');
-        const limit = 25;
-    
+        const limit = 18;
+
         if ('Segmenter' in Intl) {
             const segmenter = new Intl.Segmenter('ko', { granularity: 'grapheme' });
             const segments = Array.from(segmenter.segment(normalized), segment => segment.segment);
@@ -43,7 +41,6 @@ export default function GetVideoPage() {
     };
 
     const calculateVideoDurations = async (files) => {
-
         const durationPromises = files.map((file) =>
             new Promise((resolve) => {
                 const videoElement = document.createElement("video");
@@ -71,7 +68,6 @@ export default function GetVideoPage() {
     };
 
     const updateFileList = async (files) => {
-
         const newFiles = files.map((file) => ({
             file,
             name: file.name,
@@ -151,7 +147,6 @@ export default function GetVideoPage() {
         swapItems(index, index + 1);
     };
 
-    // 두 인덱스를 교체하는 공통 로직 (fade 효과 포함)
     const swapItems = (i1, i2) => {
         setSwappingIndices([i1, i2]);
         setTimeout(() => {
@@ -185,9 +180,9 @@ export default function GetVideoPage() {
 
         {uploadedFiles.length === 0 ? (
             <div
-            className={styles.videoInput}
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={handleDrop}
+                className={styles.videoInput}
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={handleDrop}
             >
             <label htmlFor="fileInput" className={styles.dropContent}>
                 <img
@@ -227,7 +222,7 @@ export default function GetVideoPage() {
                         <p className={styles.fileSize}>{item.displaySize}</p>
                         </div>
                     </div>
-                    <div style={{ display: "flex", alignItems: "center" }}>
+                    <div className={styles.iconControls}>
                         <img
                             src="/upperArrow.svg"
                             alt="Move Up"

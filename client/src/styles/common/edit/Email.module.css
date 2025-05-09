@@ -4,28 +4,26 @@
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    max-width: 1200px;
-    padding: 30px 20px;
+    max-width: 1000px;
     box-sizing: border-box;
     min-height: 90vh;
-  }
+}
 
+.title, .subTitle {
+    width: 100%;
+}
 .title {
     font-size: 1.5rem;
     font-weight: bold;
     text-align: left;
-    width: 100%;
     margin-bottom: 20px;
-    margin-left: 40px;
 }
-
 .subTitle {
     font-size: 0.8rem;
     text-align: left;
-    width: 100%;
     margin-bottom: 20px;
-    margin-left: 40px;
 }
+
 
 
 .wrapper {
@@ -37,15 +35,15 @@
     margin-bottom: 30px;
 }
 
+
+
 .inputContainer {
     display: flex;
     align-items: center;
     justify-content: center;
-
     width: 100%;
     max-width: 720px;
 }
-
 .input {
     display: flex;
     align-items: center;
@@ -55,17 +53,8 @@
     border: 1px solid #F1F1F1;
     border-radius: 15px;
     background-color: #fff;
-    padding: 0 1rem;
     gap: 1rem;
 }
-
-.icon {
-    width: 20px;
-    height: 20px;
-    align-items: center;
-    justify-content: center;
-}
-
 .inputField {
     flex: 1;
     border: none;
@@ -74,13 +63,19 @@
     color: black;
     background: transparent;
 }
-
 .inputField::placeholder {
     font-size: 1rem;
     font-weight: 400;
     color: #C0C0C0;
 }
 
+
+.icon {
+    width: 20px;
+    height: 20px;
+    align-items: center;
+    margin-left: 15px;
+}
 
 .buttonWrapper {
     margin-top: 20px;
@@ -102,8 +97,6 @@
     background-color: #1E40AF;
     transform: scale(1.05);
 }
-
-/* 비활성화된 상태 */
 .startButton:disabled {
     background-color: #D1D5DB;
     color: #9CA3AF;
@@ -112,12 +105,10 @@
     box-shadow: none;
     opacity: 0.8;
 }
-
 .startButton:disabled:hover {
     background-color: #D1D5DB;
 }
 
-/* 진행 그래프 */
 .graph {
     display: flex;
     justify-content: center;
@@ -125,35 +116,11 @@
     margin-top: 80px;
 }
 
-/* =======================
-   반응형 (예: 768px 이하)
-   ======================= */
 @media (max-width: 768px) {
-  .title {
-    font-size: 1.3rem;
-    margin-bottom: 15px;
-  }
-
-  .emailInput {
-    height: 50px;
-    padding: 0 0.8rem;
-  }
-
-  .inputField {
-    font-size: 1rem;
-  }
-
-  .shareButton {
-    font-size: 1rem;
-    height: 50px;
-  }
-
-  .startButton {
-    font-size: 1rem;
-    padding: 0.8rem 2rem;
-  }
-
-  .graph {
-    margin-top: 40px;
-  }
+    .graph {
+        justify-content: center;  
+    }
+    .title, .subTitle, .wraaper, .inputContainer {
+        width: 90%;
+    }
 }

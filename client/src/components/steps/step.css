@@ -1,6 +1,5 @@
 .progress-container {
     display: flex;
-    gap: 12px;
     box-sizing: border-box;
 }
 
@@ -49,8 +48,8 @@
     margin-bottom: 10px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 786px) {
     .line {
-        width: 120px;
+        width: 100px;
     }
 }
