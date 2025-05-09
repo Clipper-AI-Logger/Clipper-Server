@@ -1,12 +1,9 @@
-/* 전체 레이아웃 */
 .root {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    max-width: 1200px;
-    padding: 30px 20px;
     box-sizing: border-box;
     min-height: 90vh;
   }
@@ -57,7 +54,6 @@
     transform: scale(1.05);
 }
 
-/* 진행 그래프 */
 .graph {
     display: flex;
     justify-content: center;

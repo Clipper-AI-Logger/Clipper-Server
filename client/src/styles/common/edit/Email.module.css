@@ -121,6 +121,6 @@
         justify-content: center;  
     }
     .title, .subTitle, .wraaper, .inputContainer {
-        width: 90%;
+        width: 100%;
     }
 }

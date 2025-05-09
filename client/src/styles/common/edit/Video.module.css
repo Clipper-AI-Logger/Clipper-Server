@@ -295,17 +295,25 @@
         max-width: 120px;
     }
     .iconControls {
-        gap: 6px;
+        margin-right: 6px;
     }
     .startButton {
         font-size: 1.1rem;
     }
-    .graph {
-        margin-top: 40px;
-        width: 100%;
-        box-sizing: border-box;
+    .uploadLink, .fileName, .fileSize, .dragAndDropText {
+        font-size: 0.9rem;
     }
+    
+    .arrowIcon {
+        width: 15px;
+        height: 15px;
+    }
+    .trashIcon, .fileIcon {
+        width: 20px;
+        height: 20px;
+    }
+
     .title, .notice, .videoInput, .dropContent, .fileList, .addButton {
-        width: 90%;
+        width: 95%;
     }
 }

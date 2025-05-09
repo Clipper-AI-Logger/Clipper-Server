@@ -190,7 +190,7 @@ export default function GetVideoPage() {
                     alt="Drop Icon"
                     className={styles.dropIcon}
                 />
-                <p><span className={styles.uploadLink}>Click to Upload</span> or drag and drop</p>
+                <p><span className={styles.uploadLink}>Click to Upload</span><div className={styles.dragAndDropText}> or drag and drop</div></p>
                 <p className={styles.fileSize}>Max. number of video 5</p>
             </label>
             <input
