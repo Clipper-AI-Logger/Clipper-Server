@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useHandleRoute } from "../../lib/util";
-import { uploadVideos } from "../../lib/api";
-import styles from "../../styles/common/edit/Video.module.css";
-import Step2 from "../../components/steps/step2";
-import Spinner from "../../components/spinner/Spinner";
+import { useHandleRoute } from "../../../lib/util";
+import { uploadVideos } from "../../../lib/api";
+import styles from "./EditPage2.module.css";
+import Step2 from "../../../components/steps/step2";
+import Spinner from "../../../components/spinner/Spinner";
 
-export default function GetVideoPage() {
+export default function EditPage2() {
     const { handleRoute } = useHandleRoute();
     const location = useLocation();
 

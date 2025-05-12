@@ -1,25 +1,27 @@
 import { Routes, Route } from "react-router-dom";
-import MainPage from "../pages/MainPage";
-import GetDataPage from "../pages/edit/GetDataPage";
-import GetVideoPage from "../pages/edit/GetVideoPage";
-import GetModifyVideo from "../pages/premium/GetModifyVideo";
-import GetModifyPrompt from "../pages/premium/GetModifyPrompt";
-import GetEditHistory from "../pages/premium/GetEditHistory";
-import CompletePage from "../pages/edit/CompletePage";
-import CheckUser from "../pages/premium/CheckUser";
+import LandingPage from "../pages/Landing/LandingPage";
+import EditPage1 from "../pages/Edit/Edit1/EditPage1";
+import EditPage2 from "../pages/Edit/Edit2/EditPage2";
+import Premium from "../pages/premium/Premium/Premium"; 
+import ModifyPage1 from "../pages/premium/Modify/Modify1/ModifyPage1";
+import ModifyPage2 from "../pages/premium/Modify/Modify2/ModifyPage2";
+import ModifyPage3 from "../pages/premium/Modify/Modify3/ModifyPage3";
+import CompletePage from "../pages/Complete/CompletePage";
+
 
 function Router() {
     return (
         <div>
             <Routes>
-                <Route path="/" element={<MainPage />} />
-                <Route path="/edit/1" element={<GetDataPage />} />
-                <Route path="/edit/2" element={<GetVideoPage />} />
-
-                <Route path="/premium" element={<CheckUser />} />
-                <Route path="/premium/modify/1" element={<GetEditHistory />} />
-                <Route path="/premium/modify/2" element={<GetModifyVideo />} />
-                <Route path="/premium/modify/3" element={<GetModifyPrompt />} />
+                <Route path="/" element={<LandingPage />} />
+                
+                <Route path="/edit/1" element={<EditPage1 />} />
+                <Route path="/edit/2" element={<EditPage2 />} />
+                
+                <Route path="/premium" element={<Premium />} />
+                <Route path="/premium/modify/1" element={<ModifyPage1 />} />
+                <Route path="/premium/modify/2" element={<ModifyPage2 />} />
+                <Route path="/premium/modify/3" element={<ModifyPage3 />} />
                 
                 <Route path="/complete" element={<CompletePage />} />
             </Routes>

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import styles from "../../styles/common/edit/Email.module.css";
-import Step1 from "../../components/steps/step1";
-import { useHandleRoute } from "../../lib/util";
+import styles from "./EditPage1.module.css";
+import Step1 from "../../../components/steps/step1";
+import { useHandleRoute } from "../../../lib/util";
 
-export default function GetDataPage() {
+export default function EditPage1() {
 	const { handleRoute } = useHandleRoute();
 
 	const [email, setEmail] = useState("");

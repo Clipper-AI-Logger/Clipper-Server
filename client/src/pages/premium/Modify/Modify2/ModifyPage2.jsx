@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { useHandleRoute } from "../../lib/util";
-import styles from "../../styles/common/edit/Video.module.css";
-import Step2 from "../../components/steps/step2";
+import { useHandleRoute } from "../../../../lib/util";
+import styles from "./Modify2.module.css";
+import Step2 from "../../../../components/steps/step2";
 
 
-export default function GetModifyVideo() {
+export default function ModifyPage2() {
     const { handleRoute } = useHandleRoute();
     const location = useLocation();
 

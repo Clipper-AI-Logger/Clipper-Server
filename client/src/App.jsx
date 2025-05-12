@@ -1,4 +1,4 @@
-import './styles/common/App.css';
+import './App.css';
 import Router from "./routes/Router";
 import Nav from "./components/navbar/Nav"
 

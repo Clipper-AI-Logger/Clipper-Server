@@ -1,4 +1,4 @@
-import styles from "../../styles/common/Complete.module.css";
+import styles from "./Complete.module.css";
 import Step3 from "../../components/steps/step3";
 import { useHandleRoute } from "../../lib/util";
 

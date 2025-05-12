@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import styles from "../../styles/common/premium/Prompt.module.css";
-import Step2 from "../../components/steps/step2";
-import { useHandleRoute } from "../../lib/util";
-import { uploadModifyVideos } from "../../lib/api";
-import Spinner from "../../components/spinner/Spinner";
+import styles from "./Modify3.module.css";
+import Step2 from "../../../../components/steps/step2";
+import { useHandleRoute } from "../../../../lib/util";
+import { uploadModifyVideos } from "../../../../lib/api";
+import Spinner from "../../../../components/spinner/Spinner";
 
-export default function GetModifyPrompt() {
+export default function ModifyPage3() {
 
     const [isLoading, setIsLoading] = useState(false);
     

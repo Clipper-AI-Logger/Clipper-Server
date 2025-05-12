@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import styles from "../../styles/common/premium/Email.module.css";
-import Step1 from "../../components/steps/step1";
-import { useHandleRoute } from "../../lib/util";
-import { verifyUser, verifySchool } from "../../lib/api/premium";
+import styles from "./Premium.module.css";
+import Step1 from "../../../components/steps/step1";
+import { useHandleRoute } from "../../../lib/util";
+import { verifyUser, verifySchool } from "../../../lib/api/premium";
 
-export default function CheckUser() {
+export default function Premium() {
     const { handleRoute } = useHandleRoute();
 
     const [email, setEmail] = useState("");

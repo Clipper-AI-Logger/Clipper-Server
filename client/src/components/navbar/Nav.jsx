@@ -1,5 +1,5 @@
 import React from "react";
-import '../../styles/common/Nav.css'
+import './Nav.css'
 import { useHandleRoute } from "../../lib/util";
 
 const Nav = () => {

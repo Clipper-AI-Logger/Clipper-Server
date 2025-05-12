@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useHandleRoute } from "../lib/util";
-import "../styles/common/Main.css";
-import faqs from "../lib/faq"
+import { useHandleRoute } from "../../lib/util";
+import "./LandingPage.css";
+import faqs from "../../lib/faq"
 
-export default function MainPage() {
+export default function LandingPage() {
     
     const { handleRoute } = useHandleRoute();
     const [openQuestions, setOpenQuestions] = useState([]);

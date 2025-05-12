@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../styles/common/premium/History.module.css';
+import styles from '../../pages/premium/Modify/Modify1/Modify1.module.css';
 
 export default function History({ data, selectedUuid, onSelect, onRemove }) {
   return (

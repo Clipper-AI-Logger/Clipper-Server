@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Step1 from "../../components/steps/step1";
-import { useHandleRoute } from "../../lib/util";
-import styles from "../../styles/common/premium/History.module.css";
-import History from "../../components/history/History";
-import { getHistory, deleteHistory } from "../../lib/api/premium";
+import Step1 from "../../../../components/steps/step1";
+import { useHandleRoute } from "../../../../lib/util";
+import styles from "./Modify1.module.css";
+import History from "../../../../components/history/History";
+import { getHistory, deleteHistory } from "../../../../lib/api/premium";
 
-export default function GetEditHistory() {
+export default function ModifyPage1() {
     const { handleRoute } = useHandleRoute();
     const location = useLocation();
     const email = location.state?.email || "";
