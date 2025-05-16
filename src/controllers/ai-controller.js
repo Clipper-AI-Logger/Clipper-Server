@@ -1,6 +1,6 @@
-const addList = require('../service/editLog-service');
+const EditLog = require('../service/editLog-service');
 
-module.exports.getListFromAI = async (req, res, next) => {
+module.exports.addList = async (req, res, next) => {
     const { uuid, cv_list, nlp_list } = req.body;
 
     if (!uuid || !cv_list || !nlp_list) {
