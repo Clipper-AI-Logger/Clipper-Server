@@ -2,6 +2,7 @@ const PremiumService = require('../service/premium-service.js');
 const Video = require('../service/video-service.js');
 const EditLog = require('../service/editLog-service.js');
 const { v4: uuidv4 } = require('uuid');
+const moment = require('moment-timezone');
 
 module.exports.verifySchool = async (req, res, next) => {
 
@@ -115,7 +116,7 @@ module.exports.uploadVideosForModify = async (req, res, next) => {
         return res.json({ success: false, message: '최소 하나 이상의 동영상이 필요합니다.' });
     }
 
-    const modificationDateTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    const modificationDateTime = moment().tz('Asia/Seoul').format('YYYY-MM-DD HH:mm:ss');
     const modifiedTitle = `${title}(수정_${modificationDateTime})`;
     
     const videoService = new Video(reqId, email, modifiedTitle, subtitle, corrections, plus, minus);
