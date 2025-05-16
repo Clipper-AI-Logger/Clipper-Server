@@ -19,11 +19,6 @@ export async function uploadVideos(subtitle, email, titile, uploadedFiles) {
 		formData.append("files", file);
 	});
 
-	console.log("Subtitle:", subtitle);
-	console.log("Email:", email);
-	console.log("Title:", titile);
-	console.log("UploadedFiles:", uploadedFiles);
-
 	const response = await axios.post(baseURL + "/edit/upload", formData);
 	return response.data;
 }
@@ -48,14 +43,6 @@ export async function uploadModifyVideos(subtitle, email, title, uuid, correctio
 	uploadedFiles.forEach(({ file }) => {
 		formData.append("files", file);
 	});
-
-	console.log("Subtitle:", subtitle);
-	console.log("Email:", email);
-	console.log("Title:", title);
-	console.log("Corrections:", corrections);
-	console.log("Plus:", plus);
-	console.log("Minus:", minus);
-	console.log("UploadedFiles:", uploadedFiles);
 
 	const response = await axios.post(baseURL + "/premium/modify", formData);
 	return response.data;

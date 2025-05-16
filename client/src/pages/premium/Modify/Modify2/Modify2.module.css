@@ -31,8 +31,9 @@
 }
 
 .noticeLine2 {
-    color: red;
+    font-weight: bold;
     font-size: 1rem;
+    color: #000000;
 }
 
 .noticeLine1, .noticeLine2 {

@@ -22,9 +22,9 @@ export default function ModifyPage2() {
     const [subtitleChecked, setSubtitleChecked] = useState(false);
     const [swappingIndices, setSwappingIndices] = useState([]);
 
-    const MAX_TOTAL_SIZE = 30 * 1024 * 1024 * 1024; // 30GB
+    const MAX_TOTAL_SIZE = 30 * 1024 * 1024 * 1024;
     const MAX_VIDEO_COUNT = 5;
-    const MAX_VIDEO_DURATION = 30 * 60; // 30분
+    const MAX_VIDEO_DURATION = 30 * 60;
 
     const truncateFileName = (name) => {
 
@@ -158,15 +158,15 @@ export default function ModifyPage2() {
 
         <h2 className={styles.title}>Upload video</h2>
         <div className={styles.notice}>
-            <p className={styles.noticeLine1}>
-                영상은 5개 이하, 총 30GB 이하 업로드 가능합니다.
-            </p>
-            <p className={styles.noticeLine1}>
-                각 동영상은 30분을 초과할 수 없습니다.
-            </p>
             <p className={styles.noticeLine2}>
-                동영상을 시간 순서대로 나열해주세요.
+                처음 편집했던 원본 영상을 불러와 주세요.
             </p>
+            <p className={styles.noticeLine1}>
+                영상 편집 수정을 위해선, 기존에 사용했던 원본 영상 파일이 필요합니다.
+                <br /><br />
+                (처음 편집한 영상이 아닌 영상을 넣으시면 영상 편집 정확도가 떨어질 수 있습니다.)
+            </p>
+
         </div>
 
         {uploadedFiles.length === 0 ? (
