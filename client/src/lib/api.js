@@ -2,12 +2,15 @@ import axios from 'axios';
 
 const baseURL = import.meta.env.VITE_DEV === "0" ? "http://127.0.0.1:8000" : "/api";
 
-export async function uploadVideos(subtitle, email, titile, uploadedFiles) {
+export async function uploadVideos(subtitle, email, titile, uploadedFiles, bgm, color, introTitle) {
 
 	const metaData = {
 		subtitle,
 		email: email,
 		title: titile,
+		bgm,
+		color,
+		introTitle,
 		videos: uploadedFiles.map(({ name }) => ({ name, })),
 	};
 

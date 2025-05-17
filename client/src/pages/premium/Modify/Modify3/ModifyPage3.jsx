@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import styles from "./Modify3.module.css";
+import styles from "./ModifyPage3.module.css";
 import Step2 from "../../../../components/steps/step2";
 import { useHandleRoute } from "../../../../lib/util";
 import { uploadModifyVideos } from "../../../../lib/api";

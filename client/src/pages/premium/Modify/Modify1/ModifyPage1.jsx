@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Step1 from "../../../../components/steps/step1";
 import { useHandleRoute } from "../../../../lib/util";
-import styles from "./Modify1.module.css";
+import styles from "./ModifyPage1.module.css";
 import History from "../../../../components/history/History";
 import { getHistory, deleteHistory } from "../../../../lib/api/premium";
 

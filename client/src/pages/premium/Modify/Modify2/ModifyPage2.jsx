@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useHandleRoute } from "../../../../lib/util";
-import styles from "./Modify2.module.css";
+import styles from "./ModifyPage2.module.css";
 import Step2 from "../../../../components/steps/step2";
 
 

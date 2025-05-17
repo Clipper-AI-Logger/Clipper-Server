@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useHandleRoute } from "../../../lib/util";
-import { uploadVideos } from "../../../lib/api";
 import styles from "./EditPage2.module.css";
 import Step2 from "../../../components/steps/step2";
 import Spinner from "../../../components/spinner/Spinner";
@@ -108,33 +107,17 @@ export default function EditPage2() {
         setIsNextDisabled(totalSize > MAX_TOTAL_SIZE);
     };
 
-    const handleUploadAndNext = async () => {
+    const handleNext = () => {
         if (uploadedFiles.length === 0) {
             alert("업로드할 동영상이 없습니다.");
             return;
         }
-        try {
-            setIsLoading(true);
-            const response = await uploadVideos(
-                subtitleChecked ? 1 : 0,
-                email,
-                title,
-                uploadedFiles
-            );
-            if (!response.success) {
-                console.error("업로드 실패", response.message);
-                alert(response.message);
-                setIsLoading(false);
-                return;
-            }
-            alert(response.message);
-            handleRoute("/complete");
-
-        } catch (error) {
-            console.error("업로드 에러", error);
-            alert("업로드 중 오류가 발생했습니다.");
-            setIsLoading(false);
-        }
+        handleRoute("/edit/3", {
+            email,
+            title,
+            videos: uploadedFiles,
+            subtitleChecked,
+        });
     };
 
     const handleMoveUp = (index) => {
@@ -283,7 +266,7 @@ export default function EditPage2() {
             <button
                 className={styles.startButton}
                 disabled={uploadedFiles.length === 0 || isNextDisabled}
-                onClick={handleUploadAndNext}
+                onClick={handleNext}
             >
             다음
             </button>
