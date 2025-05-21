@@ -1,11 +1,14 @@
 import React from "react";
 import './Nav.css'
 import { useHandleRoute } from "../../lib/util";
+import Logo from "../Logo/Logo";
 
 const Nav = () => {
     const { handleRoute } = useHandleRoute();
     return (
-        <img className="navLogo" src="/logo.png" alt="logo" onClick={ () => handleRoute("/") } />
+        <div className="nav" onClick={ () => handleRoute("/") }>
+            <Logo imgWidth={50} textWidth={130} />
+        </div>
     );
 };
 

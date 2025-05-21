@@ -1,14 +1,3 @@
-.navLogo {
-  width: 250px;
-  height: auto;
-  max-width: 100%;
-  margin-top: 5px;
-  margin-bottom: 8px;
+.nav {
+    margin-bottom: 8px;
 }
-
-@media (max-width: 768px) {
-  .navLogo {
-    width: 200px;
-    height: auto;
-  }
-} 

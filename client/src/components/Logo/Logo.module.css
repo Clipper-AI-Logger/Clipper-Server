@@ -1,0 +1,24 @@
+.logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo_img {
+    height: auto;
+}
+
+.logo_text {
+    height: auto;
+    margin-right: 30px;
+}
+
+@media (max-width: 768px) {
+    .logo_img {
+        width: 50px;
+    }
+    .logo_text {
+        width: 130px;
+    }
+}

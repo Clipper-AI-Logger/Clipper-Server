@@ -7,24 +7,14 @@
     justify-content: center;
 }
 
-.root h1 {
+.h1 {
     font-size: 3rem;
-    font-weight: bold; /* 글씨체를 볼드체로 설정 */
+    font-weight: bold;
 }
 
 h2 {
     font-size: 2rem;
-    font-weight: bold; /* 글씨체를 볼드체로 설정 */
-}
-
-.logoImg {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 40px; /* 로고와 콘텐츠 사이의 간격 추가 */
+    font-weight: bold;
 }
 
 .logoImg img {
@@ -105,12 +95,12 @@ p {
 
 .step {
     display: flex;
-    flex-direction: row; /* 데스크톱: 가로 배치 */
+    flex-direction: row;
     width: 100%;
     align-items: center;
-    justify-content: center; /* 전체 중앙 정렬 */
-    gap: 200px; /* 사진과 설명 간 간격 */
-    margin: 100px 0; /* 상하 간격 추가 */
+    justify-content: center;
+    gap: 200px;
+    margin: 50px 0; 
 }
 
 /* 데스크톱(기본)에서: 이미지(order:1) → 설명(order:2) */
@@ -252,52 +242,68 @@ p {
    768px 이하일 때
    ======================================= */
 @media (max-width: 768px) {
-  .step {
-    flex-direction: column;
-    gap: 40px;
-    margin: 50px 0;
-  }
+    .step {
+        flex-direction: column;
+        gap: 10px;
+        margin: 50px 0;
+    }
 
-  .desc {
-    order: 1;
-  }
-  .screen-container {
-    order: 2;
-    width: 80%;
-    max-width: 400px;
-  }
-  
-  .screenImg {
-    width: 235px;
-    margin: 0 auto;
-    display: block;
-  }
+    p {
+        font-size: 1rem;
+    }
 
-  .desc {
-    width: 90%;
-    margin-top: 20px;
-  }
+    .desc {
+        order: 1;
+    }
+    .screen-container {
+        order: 2;
+        width: 80%;
+        max-width: 400px;
+    }
+    
+    .screenImg {
+        width: 210px;
+        height: auto;
+        margin: 0 auto;
+        display: block;
+    }
 
-  .buttons {
-    flex-direction: row;
-    gap: 1rem; 
-    margin-top: 40px;
-    margin-bottom: 40px;
-  }
+    .desc {
+        width: 90%;
+        margin-top: 20px;
+    }
 
-  .root h1 {
-    font-size: 2rem;
-  }
-  h2 {
-    font-size: 1.5rem;
-  }
+    .buttons {
+        flex-direction: row;
+        gap: 1rem; 
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
 
-  .content .freeDesc {
-    font-size: 1rem;
-  }
+    .root h1 {
+        font-size: 1.7rem;
+    }
+    h2 {
+        font-size: 1.3rem;
+    }
 
-  .logoImg img {
-    width: 300px;
-    max-width: 90%;
-  }
+    .content .freeDesc {
+        font-size: 1rem;
+    }
+
+    .logoImg img {
+        width: 300px;
+        max-width: 90%;
+    }
+
+    .faq-container {
+        width: 90%;
+        gap: 10px;
+    }
+    .faq-question {
+        font-size: 1rem;
+    }
+    .faq-toggle {
+        font-size: 0.7rem;
+    }
 }

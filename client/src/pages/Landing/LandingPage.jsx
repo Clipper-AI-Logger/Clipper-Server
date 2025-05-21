@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useHandleRoute } from "../../lib/util";
 import "./LandingPage.css";
+import Logo from "../../components/Logo/Logo";
 import faqs from "../../lib/faq"
 
 export default function LandingPage() {
@@ -30,16 +31,15 @@ export default function LandingPage() {
 
         {/* 랜딩 페이지 */}
         <br></br>
-        <h1>인공지능 vlog 편집자</h1>
+        <h1>V-log 영상 편집 인공지능</h1>
         <div className="content">
-            <div className="logoImg">
-                <img src="/logo.png" alt="logo" />
-            </div>
+
+            <Logo />
             
             <div className="contentDesc">
                 <p>📸 귀찮은 영상 편집은 그만, 찍기만 하면 끝!</p>
                 <p>🎞️ 편집 걱정 없이 소중한 순간을 남기세요</p>
-                <p>🚀 편집은 Clipper-GPT가 할게요</p>
+                <p>🚀 편집은 Clipper-AI가 할게요</p>
             </div>
         </div>
 
@@ -52,7 +52,7 @@ export default function LandingPage() {
 
 
       {/* 사용 방법 */}
-      <br></br><br></br><br></br><br></br>
+      <br /><br /><br />
       <h2 id="usage">사용 방법</h2>
       <div className="usage">
             
@@ -64,9 +64,7 @@ export default function LandingPage() {
                     <img src="/icon1.png" alt="step1" className="icon" />
                     <h2>Step 1</h2>
                     <p>
-                        편집본을 받으실 이메일을 입력해주세요.
-                        <br />
-                        (Share with others 에 공유할 사람들의 메일을 모두 적어주세요.)
+                        편집본을 받으실 이메일과 브이로그 제목을 입력해주세요.
                     </p>
                 </div>
             </div>
@@ -80,10 +78,6 @@ export default function LandingPage() {
                     <h2>Step 2</h2>
                     <p>
                         편집하실 영상을 업로드해주세요.
-                        <br />
-                        자막을 씌운 영상을 받고 싶으시면 체크박스를 선택해주세요.
-                        <br />
-                        선택하지 않으시면 자막 파일을 편집된 동영상과 함께 제공합니다.
                     </p>
                 </div>
             </div>
@@ -107,12 +101,10 @@ export default function LandingPage() {
         </div>
 
 
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br />
         <div className="content">
             <h1>AI 완전 자동 영상 편집기</h1>
-            <div className="logoImg">
-                    <img src="/logo.png" alt="logo" />
-            </div>
+            <Logo />
             <div className="freeDesc">
                     프리런칭 2025년 3월까지 무료로 이용해보세요<br />
                     프리런칭 기간 중 이용하신 분들께는 정식 런칭 후 무료 쿠폰을 드려요!
@@ -129,7 +121,7 @@ export default function LandingPage() {
 
 
 
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br />
 
         <h2>자주 묻는 질문</h2>
         <div className="faq-container">
