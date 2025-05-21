@@ -83,7 +83,7 @@ export default function EditPage3() {
 
 			{/* 인트로 분위기 설정 */}
 			<div className={styles.subTitle}>
-                인트로 분위기를 설정해주세요. (분위기에 맞는 bgm이 들어갑니다.)
+                인트로 분위기를 설정해주세요.
             </div>
 
 			<div className={styles.introWrapper}>

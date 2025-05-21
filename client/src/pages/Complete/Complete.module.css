@@ -1,13 +1,11 @@
 .root {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
     width: 100%;
+    padding: 15px 20px;
     box-sizing: border-box;
     min-height: 90vh;
-  }
-
+}
 
 .completeContent {
     display: flex;
@@ -59,4 +57,24 @@
     justify-content: center;
     align-items: center;
     margin-top: 100px;
+}
+
+
+@media (max-width: 768px) {
+
+    .checkIcon {
+        width: 80px;
+        height: 80px;
+    }
+    .completeText {
+        font-size: 1.5rem;
+    }
+    .homeButton {
+		font-size: 1rem;
+		padding: 0.8rem 2rem;
+	}
+
+	.graph {
+		margin-top: 40px;
+	}
 }

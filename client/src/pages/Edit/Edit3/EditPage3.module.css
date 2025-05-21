@@ -1,13 +1,13 @@
 .root {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 100%;
-  max-width: 1200px;
-  padding: 30px 20px;
-  box-sizing: border-box;
-  min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 1200px;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    min-height: 90vh;
 }
 
 
@@ -192,6 +192,57 @@
  반응형 (예: 768px 이하)
  ======================= */
 @media (max-width: 768px) {
+
+    .subTitle {
+        font-size: 0.8rem;
+    }
+
+
+    .introWrapper {
+        gap: 7px;
+    }
+    .button {
+        width: 75px;
+        height: 35px;
+        font-size: 0.5rem;
+    }
+    .button.selected {
+        border: 1px solid black;
+    }
+
+
+    .colorSelectWrapper {
+        gap: 12px;
+    }
+    .colorButton {
+        width: 40px;
+        height: 40px;
+        border-radius: 0 30px 30px 30px;
+        border: 0.5px solid #e5e7eb;
+    }
+    .colorButton.selected {
+        border: 1.5px solid black;
+    }
+
+
+    .inputContainer {
+        width: 90%;
+    }
+    .input {
+        width: 100%;
+        height: 40px;
+    }
+    .inputField {
+        font-size: 0.8rem;
+    }
+    .inputField::placeholder {
+        font-size: 0.8rem;
+    }
+    .icon {
+        width: 15px;
+        height: 15px;
+    }
+    
 
 
 	.startButton {

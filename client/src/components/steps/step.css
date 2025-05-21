@@ -50,6 +50,25 @@
 
 @media (max-width: 786px) {
     .line {
-        width: 80px;
+        width: 70px;
+    }
+
+    .progress-step .circle {
+        width: 25px;
+        height: 25px;
+        margin-bottom: 5px; 
+    }
+    
+    .progress-step.completed .circle {
+        width: 20px;
+        height: 20px;
+    }
+
+    .progress-step .label {
+        font-size: 0.6rem;
+    }
+    
+    .progress-step.completed .label {
+        font-weight: bold;
     }
 }
