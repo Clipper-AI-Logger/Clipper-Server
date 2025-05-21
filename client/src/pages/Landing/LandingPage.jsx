@@ -22,7 +22,8 @@ export default function LandingPage() {
 		handleRoute("/edit/1");
 	};
     const handleModifyNext = () => {
-		handleRoute("/premium");
+        alert("준비중입니다.");
+		// handleRoute("/premium");
 	};
 
 

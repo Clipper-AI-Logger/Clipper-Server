@@ -12,14 +12,14 @@ export default function EditPage3() {
     
 	const { handleRoute } = useHandleRoute();
 	const location = useLocation();
-	const { email, title, videos, subtitleChecked } = location.state || {};
+	const { email, prompt, videos, subtitleChecked } = location.state || {};
 
 	useEffect(() => {
-		if (!email || !title || !videos || videos.length === 0) {
+		if (!email || !videos || videos.length === 0) {
 			handleRoute("/");
 		}
 		console.log(location.state);
-	}, [email, videos, title, subtitleChecked, handleRoute]);
+	}, [email, videos, prompt, subtitleChecked, handleRoute]);
 
 	const [bgm, setBgm] = useState("");
 	const [color, setColor] = useState("");
@@ -48,7 +48,7 @@ export default function EditPage3() {
             const response = await uploadVideos(
                 subtitleChecked ? 1 : 0,
                 email,
-				title,
+				prompt,
                 videos,
                 bgm,
                 color,

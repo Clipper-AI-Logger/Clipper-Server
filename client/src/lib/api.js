@@ -2,15 +2,15 @@ import axios from 'axios';
 
 const baseURL = import.meta.env.VITE_DEV === "0" ? "http://127.0.0.1:8000" : "/api";
 
-export async function uploadVideos(subtitle, email, titile, uploadedFiles, bgm, color, introTitle) {
+export async function uploadVideos(subtitle, email, prompt, uploadedFiles, bgm, color, introTitle) {
 
 	const metaData = {
-		subtitle,
+		subtitle: subtitle,
 		email: email,
-		title: titile,
-		bgm,
-		color,
-		introTitle,
+		prompt: prompt,
+		bgm: bgm,
+		color: color,
+		introTitle: introTitle,
 		videos: uploadedFiles.map(({ name }) => ({ name, })),
 	};
 
@@ -21,6 +21,7 @@ export async function uploadVideos(subtitle, email, titile, uploadedFiles, bgm, 
 	uploadedFiles.forEach(({ file }) => {
 		formData.append("files", file);
 	});
+	console.log(formData);
 
 	const response = await axios.post(baseURL + "/edit/upload", formData);
 	return response.data;

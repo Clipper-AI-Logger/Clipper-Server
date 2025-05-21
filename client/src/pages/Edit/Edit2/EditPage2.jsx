@@ -9,8 +9,8 @@ export default function EditPage2() {
     const { handleRoute } = useHandleRoute();
     const location = useLocation();
 
-    const email = location.state?.email || "";
-    const title = location.state?.title || "";
+    const email = location.state.email;
+    const prompt = location.state?.prompt || "";
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const [isNextDisabled, setIsNextDisabled] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -114,7 +114,7 @@ export default function EditPage2() {
         }
         handleRoute("/edit/3", {
             email,
-            title,
+            prompt,
             videos: uploadedFiles,
             subtitleChecked,
         });

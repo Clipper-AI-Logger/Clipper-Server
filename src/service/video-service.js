@@ -5,14 +5,11 @@ const { v4: uuidv4 } = require('uuid');
 
 module.exports = class Video {
     
-    constructor(reqId, email, title, subtitle, corrections, plus, minus) {
+    constructor(reqId, email, prompt, subtitle, bgm, color, introTitle) {
         this.reqId = reqId;
         this.email = email;
-        this.title = title;
+        this.prompt = prompt;
         this.subtitle = subtitle;
-        this.corrections = corrections;
-        this.plus = plus; 
-        this.minus = minus;
     }
 
     async readFiles(videoPaths) {
@@ -29,22 +26,23 @@ module.exports = class Video {
         return filesData;
     }
 
-    async sendFile(videos) {
+    async sendFile(videos, bgm, color, introTitle) {
         const formData = new FormData();
         
         formData.append('reqId', this.reqId);
-        formData.append('title', this.title);
-        formData.append('emails', this.email);
-        formData.append('title', this.title);
+        formData.append('prompt', this.prompt);
+        formData.append('email', this.email);
         formData.append('subtitle', this.subtitle);
-       
+        formData.append('bgm', bgm);
+        formData.append('color', color);
+        formData.append('intro_title', introTitle);
 
         videos.forEach((video, i) => {
             formData.append('videos', video.data, { filename: video.filename });
         });
 
         try {
-            console.log('formData emails : ', formData._streams);
+            // console.log('formData emails : ', formData._streams);
             // await fetch('http://34.64.57.87:8000/files', {
             //     method: 'POST',
             //     body: formData
@@ -57,7 +55,7 @@ module.exports = class Video {
         return true;
     }
 
-    async sendFileForModify(videos, uuid) {
+    async sendFileForModify(videos, uuid, corrections, plus, minus) {
 
         const formData = new FormData();
 
@@ -66,10 +64,10 @@ module.exports = class Video {
         formData.append('title', this.title);
         formData.append('uuid', uuid);
         formData.append('subtitle', this.subtitle);
-        formData.append('corrections', this.corrections);
-        formData.append('plus', this.plus);
-        formData.append('minus', this.minus);
-      
+        formData.append('corrections', corrections);
+        formData.append('plus', plus);
+        formData.append('minus', minus);
+
         videos.forEach((video, i) => {
             formData.append('videos', video.data, { filename: video.filename });
         });

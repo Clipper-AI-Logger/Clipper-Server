@@ -6,9 +6,9 @@ module.exports.uploadVideos = async (req, res, next) => {
     
     const reqId = uuidv4();
 
-    const { email, subtitle, title, videos: videoInfo } = JSON.parse(req.body.data);
+    const { email, subtitle, prompt, bgm, color, introTitle, videos: videoInfo } = JSON.parse(req.body.data);
 
-    if (!email || !title || !Array.isArray(videoInfo) || videoInfo.length === 0) {
+    if (!email || !subtitle || !bgm || !color || !introTitle || !Array.isArray(videoInfo) || videoInfo.length === 0) {
         return res.json({ success: false, message: '입력 필드를 모두 입력해주세요' });
     }
     if (!req.files || req.files.length === 0) {
@@ -17,15 +17,15 @@ module.exports.uploadVideos = async (req, res, next) => {
 
     let videoPaths = req.files.map(file => file.path);
     
-    const videoService = new Video(reqId, email, title, subtitle);
+    const videoService = new Video(reqId, email, prompt, subtitle);
 
     try {
         
         const videos = await videoService.readFiles(videoPaths);
-        const sendVideoResult = await videoService.sendFile(videos);
+        const sendVideoResult = await videoService.sendFile(videos, bgm, color, introTitle);
 
         const editLogService = new EditLog();
-        const editLogResult = await editLogService.saveEditLog(reqId, email, title);
+        const editLogResult = await editLogService.saveEditLog(reqId, email, introTitle);
 
         if (sendVideoResult && editLogResult) {
             return res.status(200).json({ success: true, message: '편집이 시작되었습니다' });
