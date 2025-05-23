@@ -113,11 +113,32 @@
     margin-top: 50px;
 }
 
+
 @media (max-width: 768px) {
-    .graph {
-        justify-content: center;  
+
+    .root {
+        padding: 0 15px;
     }
-    .title, .subTitle, .wraaper, .inputContainer {
-        width: 100%;
+
+    .title {
+        font-size: 1rem;
+    }
+    .subTitle {
+        font-size: 0.7rem;
+    }
+
+    .input {
+        height: 40px;
+        gap: 0.8rem;
+    }
+    .inputField {
+        font-size: 0.8rem;
+    }
+    .inputField::placeholder {
+        font-size: 0.8rem;
+    }
+    .icon {
+        width: 15px;
+        height: 15px;
     }
 }
