@@ -230,6 +230,7 @@
     margin-top: 60px;
     margin-bottom: 20px;
     text-align: center;
+    align-items: center;
 }
 
 .checkboxLabel {
@@ -278,42 +279,65 @@
 }
 
 @media (max-width: 768px) {
+    .root {
+        padding: 0 15px;
+    }
+    .title {
+        font-size: 1rem;
+    }
+    .noticeLine1, .noticeLine2 {
+        font-size: 0.7rem;
+    }
+    .subTitle {
+        font-size: 0.7rem;
+    }
+
     .videoInput {
-        height: 150px;
+        height: 140px;
     }
-    .dropIcon {
-        width: 40px;
-        height: 40px;
+    .uploadLink, .dragAndDropText, .fileSize {
+        font-size: 0.8rem;
     }
+
     .fileList {
         gap: 10px;
     }
-    .fileItem {
-        padding: 8px;
+    .fileDetails {
+        gap: 10px;
     }
     .fileName {
-        max-width: 120px;
+        font-size: 0.8rem;
     }
-    .iconControls {
-        margin-right: 6px;
+    .fileIcon {
+        width: 25px;
+        height: 25px;
+        margin-left: 0;
     }
-    .startButton {
-        font-size: 1.1rem;
-    }
-    .uploadLink, .fileName, .fileSize, .dragAndDropText {
-        font-size: 0.9rem;
-    }
-    
     .arrowIcon {
-        width: 15px;
         height: 15px;
+        width: 15px;
     }
-    .trashIcon, .fileIcon {
-        width: 20px;
+    .trashIcon {
         height: 20px;
+        width: 20px;
     }
 
-    .title, .notice, .videoInput, .dropContent, .fileList, .addButton {
-        width: 95%;
+
+    .addVideoButton {
+        height: 50px;
+        font-size: 1rem;
+    }
+
+    .checkboxLabel {
+        font-size: 1rem;
+    }
+    .checkbox {
+        width: 25px;
+        height: 25px;
+    }
+
+    .startButton {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
     }
 }
