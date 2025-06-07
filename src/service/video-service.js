@@ -7,7 +7,7 @@ const os = require('os');
 const AWS = require('aws-sdk');
 const archiver = require('archiver');
 const { v4: uuidv4 } = require('uuid');
-const s3Manager = require('../util/s3-manager');
+const S3Manager = require('../util/s3-manager');
 
 // const AIServerURL = "http://localhost:8000/files"
 
@@ -32,7 +32,7 @@ module.exports = class Video {
         this.email = email;
         this.prompt = prompt;
         this.subtitle = subtitle;
-
+        this.s3Manager = new S3Manager();
     }
 
     async readFiles(videoPaths) {
@@ -67,7 +67,7 @@ module.exports = class Video {
                 timestamp: new Date().toISOString()
             };
 
-            await s3Manager.uploadFiles(videos, metadata);
+            await this.s3Manager.uploadFiles(videos, metadata);
             return true
 
         } catch (error) {
