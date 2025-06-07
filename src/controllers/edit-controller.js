@@ -1,10 +1,12 @@
 const Video = require('../service/video-service.js');
 const EditLog = require('../service/editLog-service.js');
+const EC2Manager = require('../util/ec2-manager.js');
 const { v4: uuidv4 } = require('uuid');
 
 module.exports.uploadVideos = async (req, res, next) => {
     
     const reqId = uuidv4();
+    const ec2Manager = new EC2Manager();
 
     const { email, subtitle, prompt, bgm, color, introTitle, videos: videoInfo } = JSON.parse(req.body.data);
 
@@ -21,14 +23,26 @@ module.exports.uploadVideos = async (req, res, next) => {
 
     try {
         
+        // Send Video & metadatas to S3 bucket
         const videos = await videoService.readFiles(videoPaths);
         const sendVideoResult = await videoService.saveFileToS3(videos, bgm, color, introTitle);
 
+        // save data in database
         const editLogService = new EditLog();
         const editLogResult = await editLogService.saveEditLog(reqId, email, introTitle);
 
         if (sendVideoResult && editLogResult) {
-            return res.status(200).json({ success: true, message: '편집이 시작되었습니다' });
+
+            // generate EC2 Instance to run AI
+            console.log('EC2 인스턴스 시작 시도');
+            const ec2Result = await ec2Manager.startInstance();
+            console.log('EC2 인스턴스 시작 결과:', ec2Result);
+
+            return res.status(200).json({ 
+                success: true, 
+                message: '편집이 시작되었습니다',
+                ec2Status: ec2Result
+            });
         } else {
             return res.json({ success: false, message: '영상이 제대로 업로드되지 않았습니다.' });
         }
