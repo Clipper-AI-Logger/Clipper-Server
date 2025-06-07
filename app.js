@@ -13,8 +13,8 @@ const aiRouter = require("./src/routes/ai-route.js");
 const getResultRouter = require("./src/routes/getResult-route.js");
 
 app.use(cors());
-app.use(express.json({limit: '2000mb'}));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({limit: '2048mb'}));
+app.use(express.urlencoded({ extended: true, limit: '2048mb' }));
 
 app.use("/edit", editRouter);
 app.use("/premium", premiumRouter);
