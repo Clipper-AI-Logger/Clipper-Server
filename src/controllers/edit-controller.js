@@ -22,7 +22,7 @@ module.exports.uploadVideos = async (req, res, next) => {
     try {
         
         const videos = await videoService.readFiles(videoPaths);
-        const sendVideoResult = await videoService.sendFile(videos, bgm, color, introTitle);
+        const sendVideoResult = await videoService.saveFileToS3(videos, bgm, color, introTitle);
 
         const editLogService = new EditLog();
         const editLogResult = await editLogService.saveEditLog(reqId, email, introTitle);

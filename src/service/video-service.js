@@ -4,10 +4,13 @@ const path = require('path');
 const FormData = require('form-data');
 const axios = require('axios');
 const os = require('os');
+const AWS = require('aws-sdk');
+const archiver = require('archiver');
+const { v4: uuidv4 } = require('uuid');
+const s3Manager = require('../util/s3-manager');
 
-const AIServerURL = "http://52.79.149.17:8000/files"
+// const AIServerURL = "http://localhost:8000/files"
 
-// 지원하는 비디오 포맷과 MIME 타입 매핑
 const VIDEO_MIME_TYPES = {
     '.mp4': 'video/mp4',
     '.mov': 'video/quicktime',
@@ -24,11 +27,12 @@ const VIDEO_MIME_TYPES = {
 
 module.exports = class Video {
     
-    constructor(reqId, email, prompt, subtitle, bgm, color, introTitle) {
+    constructor(reqId, email, prompt, subtitle) {
         this.reqId = reqId;
         this.email = email;
         this.prompt = prompt;
         this.subtitle = subtitle;
+
     }
 
     async readFiles(videoPaths) {
@@ -50,78 +54,36 @@ module.exports = class Video {
         return VIDEO_MIME_TYPES[ext] || 'application/octet-stream';
     }
 
-    async sendFile(videos, bgm, color, introTitle) {
-        const formData = new FormData();
-        
-        formData.append('reqId', this.reqId);
-        formData.append('ttype', 1);
-        formData.append('prompt', this.prompt || '');
-        formData.append('email', this.email);
-        formData.append('subtitle', this.subtitle ? 0 : 1);
-        formData.append('bgm', bgm.toString());
-        formData.append('color', color.toString());
-        formData.append('title', introTitle);
-
-        videos.forEach((video, i) => {
-            console.log(`비디오 ${i + 1} 처리 중:`, {
-                filename: video.filename,
-                size: video.data.length
-            });
-
-            formData.append('videos', video.data, {
-                filename: video.filename,
-                contentType: 'video/*'
-            });
-        });
-
+    async saveFileToS3(videos, bgm, color, introTitle) {
         try {
+            const metadata = {
+                reqId: this.reqId,
+                email: this.email,
+                prompt: this.prompt,
+                subtitle: this.subtitle,
+                bgm: bgm,
+                color: color,
+                introTitle: introTitle,
+                timestamp: new Date().toISOString()
+            };
 
-            console.log('formData debug : ', formData._streams);
-
-            // 비동기로 요청을 보내고 즉시 응답
-            axios.post(AIServerURL, formData, {
-                headers: {
-                    ...formData.getHeaders(),
-                    'Content-Type': 'multipart/form-data'
-                },
-                maxContentLength: Infinity,
-                maxBodyLength: Infinity,
-                onUploadProgress: (progressEvent) => {
-                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                    console.log(`전체 업로드 진행률: ${percentCompleted}%`);
-                }
-            }).then(response => {
-                console.log('AI server 작업 완료:', response.data);
-            }).catch(error => {
-                console.error('AI server 작업 실패:', error);
-            });
-
-            return true;
+            await s3Manager.uploadFiles(videos, metadata);
+            return true
 
         } catch (error) {
-
-            if (error.code === 'ECONNABORTED') {
-                console.error('Request timeout - 서버 응답 시간이 초과되었습니다.');
-                throw new Error('서버 응답 시간이 초과되었습니다. 잠시 후 다시 시도해주세요.');
-
-            } else if (error.code === 'ERR_NETWORK') {
-                console.error('Network error - 서버에 연결할 수 없습니다.');
-                throw new Error('서버에 연결할 수 없습니다. 서버 상태를 확인해주세요.');
-
-            } else {
-                console.error('Error setting up request:', error.message);
-                throw new Error(`요청 설정 중 오류 발생: ${error.message}`);
-            }
+            console.error('비디오 저장 중 오류:', error);
+            throw error;
         }
     }
 
-    async sendFileForModify(videos, uuid, corrections, plus, minus) {
+
+    async sendFileForModify(videos, uuid, introTitle, corrections, plus, minus) {
 
         const formData = new FormData();
 
         formData.append('reqId', this.reqId);
         formData.append('email', this.email);
-        formData.append('title', this.title);
+        formData.append('title', introTitle);
         formData.append('uuid', uuid);
         formData.append('subtitle', this.subtitle);
         formData.append('corrections', corrections);

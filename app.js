@@ -1,29 +1,33 @@
 const express = require("express");
 const cors = require("cors");
 const db = require("./src/config/database.js");
+const s3Manager = require("./src/util/s3-manager.js");
 
 require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT | 8000;
 
-const editRouter = require("./src/routes/edit-route.js");
-const premiumRouter = require("./src/routes/premium-route.js");
-const aiRouter = require("./src/routes/ai-route.js");
-const getResultRouter = require("./src/routes/getResult-route.js");
-
 app.use(cors());
 app.use(express.json({limit: '2048mb'}));
-app.use(express.urlencoded({ extended: true, limit: '2048mb' }));
+app.use(express.urlencoded({limit: '2048mb', extended: true}));
 
-app.use("/edit", editRouter);
-app.use("/premium", premiumRouter);
-app.use("/ai", aiRouter);
-app.use("/result", getResultRouter);
+app.use("/premium", require("./src/routes/premium-route.js"));
+app.use("/ai", require("./src/routes/ai-route.js"));
+app.use("/edit", require("./src/routes/edit-route.js"));
 
-app.listen(port, (err) => {
-    if (err) return console.log(err);
-    console.log("**----------------------------------**");
-    console.log("====      Server is On...!!!      ====");
-    console.log("**----------------------------------**");
-})
+async function startServer() {
+    try {
+        await s3Manager.initialize();
+        app.listen(port, () => {
+            console.log("**----------------------------------**");
+            console.log("====      Server is On...!!!      ====");
+            console.log(`====  Current Folder: ${s3Manager.getNextFolderNumber()}  ====`);
+            console.log("**----------------------------------**");
+        });
+    } catch (error) {
+        console.error('서버 시작 실패:', error);
+    }
+}
+
+startServer();
