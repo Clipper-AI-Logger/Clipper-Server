@@ -61,6 +61,7 @@ module.exports = class Video {
                 email: this.email,
                 prompt: this.prompt,
                 subtitle: this.subtitle,
+                ttype: 1,
                 bgm: bgm,
                 color: color,
                 introTitle: introTitle,
