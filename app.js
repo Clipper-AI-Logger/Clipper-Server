@@ -41,7 +41,6 @@ async function startServer() {
         app.listen(port, () => {
             console.log("**----------------------------------**");
             console.log("====      Server is On...!!!      ====");
-            console.log(`====        Current Max: ${currentFolderNumber}        ====`);
             console.log("**----------------------------------**");
         });
     } catch (error) {

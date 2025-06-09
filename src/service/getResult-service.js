@@ -25,7 +25,7 @@ class GetResult {
                 return { success: false, message: 'zip 파일만 업로드 가능합니다.' };
             }
 
-            const fileName = `${uuidv4()}.zip`;
+            const fileName = file.originalname;
             const filePath = path.join(this.resultDir, fileName);
 
             await fs.promises.writeFile(filePath, file.buffer);
