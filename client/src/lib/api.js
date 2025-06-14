@@ -18,10 +18,11 @@ const jsonApi = axios.create({
 });
 
 const createTusUpload = (file, metadata) => {
-    
     return new Promise((resolve, reject) => {
         const upload = new tus.Upload(file, {
-            endpoint: `${baseURL}/edit/upload`,
+            endpoint: import.meta.env.VITE_DEV === '0' 
+                ? 'http://127.0.0.1:8000/edit/upload'
+                : 'https://clippergpt.com/api/edit/upload',
             chunkSize: 5 * 1024 * 1024,
             retryDelays: [0, 1000, 3000],
             metadata: {
