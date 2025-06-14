@@ -1,8 +1,9 @@
 const express = require("express");
 const editController = require("../controllers/edit-controller.js");
-const { uploadFiles } = require("../util/middleware.js");
+const { tusMiddleware } = require("../util/middleware.js");
 const router = express.Router();
 
-router.post("/upload", uploadFiles, editController.uploadVideos);
+router.all("/upload*", tusMiddleware);
+router.post("/process", editController.uploadVideos);
 
 module.exports = router;

@@ -1,6 +1,7 @@
 import axios from 'axios';
+import * as tus from 'tus-js-client';
 
-const baseURL = import.meta.env.VITE_DEV === '0' ? 'http://127.0.0.1:8000' : '/api';
+const baseURL = "/api";
 
 const api = axios.create({
     baseURL,
@@ -10,24 +11,66 @@ const api = axios.create({
     maxBodyLength: Infinity,
 });
 
-export async function uploadVideos(subtitle, email, prompt, uploadedFiles, bgm, color, introTitle) {
-	
-    const formData = new FormData();
-    formData.append('data', JSON.stringify({ subtitle, email, prompt, bgm, color, introTitle }));
+const jsonApi = axios.create({
+    baseURL,
+    timeout: 600000,
+    headers: { 'Content-Type': 'application/json' },
+});
 
-    uploadedFiles.forEach(({ file }) => formData.append('files', file));
-
-    try {
-        const response = await api.post('/edit/upload', formData, {
-            onUploadProgress: (progressEvent) => {
-                const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+const createTusUpload = (file, metadata) => {
+    
+    return new Promise((resolve, reject) => {
+        const upload = new tus.Upload(file, {
+            endpoint: `${baseURL}/edit/upload`,
+            chunkSize: 5 * 1024 * 1024,
+            retryDelays: [0, 1000, 3000],
+            metadata: {
+                data: JSON.stringify(metadata),
+                filename: file.name,
+                filetype: file.type
+            },
+            onProgress: (bytesUploaded, bytesTotal) => {
+                const percentCompleted = Math.round((bytesUploaded * 100) / bytesTotal);
                 console.log(`업로드 진행률: ${percentCompleted}%`);
             },
+            onError: (error) => {
+                console.error('업로드 에러:', error);
+                reject(error);
+            },
+            onSuccess: () => {
+                console.log('업로드 성공:', upload.url);
+                resolve(upload.url);
+            }
         });
+        upload.start();
+    });
+};
+
+export async function uploadVideos(subtitle, email, prompt, uploadedFiles, bgm, color, introTitle) {
+    try {
+        const metadata = { subtitle, email, prompt, bgm, color, introTitle };
+        
+        const uploadPromises = uploadedFiles.map(({ file }) => {
+            return createTusUpload(file, metadata);
+        });
+
+        const uploadUrls = await Promise.all(uploadPromises);
+        
+        const response = await jsonApi.post('/edit/process', {
+            email,
+            subtitle,
+            prompt,
+            bgm,
+            color,
+            introTitle,
+            uploadUrls
+        });
+
         return response.data;
+
     } catch (error) {
         console.error('업로드 에러:', error);
-        throw error;
+        return response.data;
     }
 }
 

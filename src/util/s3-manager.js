@@ -40,6 +40,8 @@ class S3Manager {
 
         let folderNumber;
         try {
+            
+            console.log("[+] S3 업로드 시작")
 
             folderNumber = await this.getNextFolderNumber();
             
@@ -72,9 +74,10 @@ class S3Manager {
             };
 
             const uploadResult = await this.s3.upload(uploadParams).promise();
-            console.log('S3 업로드 완료', uploadResult);
+            console.log('[+] S3 업로드 완료', uploadResult);
 
             await fsPromises.rm(tempDir, { recursive: true, force: true });
+            await fsPromises.rm(zipFilePath, { recursive: true, force: true });
 
             return {
                 success: true,
@@ -82,7 +85,7 @@ class S3Manager {
             };
 
         } catch (error) {
-            console.error('S3 업로드 중 오류 발생:', error);
+            console.error('[-] S3 업로드 중 오류 발생:', error);
             throw new Error('파일 업로드 중 오류가 발생했습니다.');
         }
     }
@@ -96,7 +99,7 @@ class S3Manager {
             await this.s3.deleteObject(params).promise();
             return true;
         } catch (error) {
-            console.error('S3 파일 삭제 중 오류:', error);
+            console.error('[-] S3 파일 삭제 중 오류:', error);
             throw error;
         }
     }
@@ -110,7 +113,7 @@ class S3Manager {
             const data = await this.s3.listObjectsV2(params).promise();
             return data.Contents;
         } catch (error) {
-            console.error('S3 파일 목록 조회 중 오류:', error);
+            console.error('[-] S3 파일 목록 조회 중 오류:', error);
             throw error;
         }
     }

@@ -47,6 +47,7 @@ module.exports = class Video {
     }
 
     async saveFileToS3(videos, bgm, color, introTitle) {
+
         try {
             const metadata = {
                 reqId: this.reqId,
@@ -103,8 +104,10 @@ module.exports = class Video {
     async deleteFile(videoPaths) {
         for (const videoPath of videoPaths) {
             try {
+                const metadataPath = `${videoPath}.json`;
                 await fsPromises.unlink(videoPath);
-                console.log(`Deleted file: ${videoPath}`);
+                await fsPromises.unlink(metadataPath);
+                console.log(`File deleted: ${videoPath}`);
             } catch (error) {
                 console.error(`Error deleting file ${videoPath}:`, error);
             }
