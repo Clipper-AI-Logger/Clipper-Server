@@ -38,6 +38,7 @@ const uploadFiles = multer({ storage: storage }).array('files');
 const tusServer = new Server({
     path: '/edit/upload',
     datastore: new FileStore({ directory: uploadDir }),
+    respectForwardedHeaders: true,
     namingFunction: (req, metadata) => {
         if (metadata.filename) {
             const ext = MIME_TO_EXT[metadata.filetype] || path.extname(metadata.filename);
