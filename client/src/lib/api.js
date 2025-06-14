@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as tus from 'tus-js-client';
 
-const baseURL = window.location.protocol + "//" + window.location.host + "/api";
+const baseURL = import.meta.env.VITE_DEV === '0' ? 'http://127.0.0.1:8000' : '/api';
 
 const api = axios.create({
     baseURL,
