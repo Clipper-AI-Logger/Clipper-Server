@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as tus from 'tus-js-client';
 
-const baseURL = "/api";
+const baseURL = window.location.protocol + "//" + window.location.host + "/api";
 
 const api = axios.create({
     baseURL,

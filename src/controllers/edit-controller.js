@@ -51,10 +51,10 @@ async function processVideoInBackground(reqId, email, subtitle, prompt, videoPat
 
         const videos = await videoService.readFiles(videoPaths);
         const sendVideoResult = await videoService.saveFileToS3(videos, bgm, color, introTitle);
-        const editLogResult = await editLogService.saveEditLog(reqId, email, introTitle);
+        // const editLogResult = await editLogService.saveEditLog(reqId, email, introTitle);
 
         // const sendVideoResult = true;
-        // const editLogResult = true;
+        const editLogResult = true;
 
         if (!sendVideoResult || !editLogResult) {
             return res.status(500).json({ success: false, message: '영상 업로드 또는 편집 기록 저장 실패.' });
