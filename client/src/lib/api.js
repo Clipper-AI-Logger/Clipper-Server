@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as tus from 'tus-js-client';
 
-const baseURL = import.meta.env.VITE_DEV === '0' ? 'http://127.0.0.1:8000' : '/api';
+const baseURL = '/api';
 
 const api = axios.create({
     baseURL,
@@ -20,7 +20,7 @@ const jsonApi = axios.create({
 const createTusUpload = (file, metadata) => {
     return new Promise((resolve, reject) => {
         const upload = new tus.Upload(file, {
-            endpoint: '/api/edit/upload',
+            endpoint: `${baseURL}/edit/upload`,
             chunkSize: 5 * 1024 * 1024,
             retryDelays: [0, 1000, 3000],
             metadata: {
