@@ -37,20 +37,18 @@ class S3Manager {
     }
 
     async uploadFiles(files, metadata) {
+
         let folderNumber;
         try {
-            console.log('1. 폴더 번호 확보');
+
             folderNumber = await this.getNextFolderNumber();
             
-            console.log('2. 임시 디렉토리 생성');
             const tempDir = path.join(__dirname, '../../temp', uuidv4());
             await fsPromises.mkdir(tempDir, { recursive: true });
 
-            console.log('3. 메타데이터 파일 저장');
             const metadataPath = path.join(tempDir, 'metadata.json');
             await fsPromises.writeFile(metadataPath, JSON.stringify(metadata, null, 2));
 
-            console.log('4. 비디오 파일 저장');
             for (const file of files) {
                 const filePath = path.join(tempDir, path.basename(file.filename));
                 await fsPromises.writeFile(filePath, file.data);
@@ -60,14 +58,12 @@ class S3Manager {
             const zipFileName = `${String(folderNumber).padStart(3, '0')}.zip`;
             const zipFilePath = path.join(__dirname, "../../uploads", zipFileName);
 
-            console.log('5. 압축 시작');
             const output = fs.createWriteStream(zipFilePath);
             const archive = archiver('zip', { zlib: { level: 9 } });
             archive.pipe(output);
             archive.directory(tempDir, false);
             await archive.finalize();
 
-            console.log('6. S3 업로드 준비');
             const uploadParams = {
                 Bucket: this.bucketName,
                 Key: folderPath + zipFileName,
@@ -75,9 +71,8 @@ class S3Manager {
                 ContentType: 'application/zip'
             };
 
-            console.log('7. S3 업로드 시작');
             const uploadResult = await this.s3.upload(uploadParams).promise();
-            console.log('8. S3 업로드 완료', uploadResult);
+            console.log('S3 업로드 완료', uploadResult);
 
             await fsPromises.rm(tempDir, { recursive: true, force: true });
 

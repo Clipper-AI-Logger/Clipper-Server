@@ -1,15 +1,7 @@
-const fs = require('fs');
 const fsPromises = require('fs').promises;
 const path = require('path');
 const FormData = require('form-data');
-const axios = require('axios');
-const os = require('os');
-const AWS = require('aws-sdk');
-const archiver = require('archiver');
-const { v4: uuidv4 } = require('uuid');
 const S3Manager = require('../util/s3-manager');
-
-// const AIServerURL = "http://localhost:8000/files"
 
 const VIDEO_MIME_TYPES = {
     '.mp4': 'video/mp4',
