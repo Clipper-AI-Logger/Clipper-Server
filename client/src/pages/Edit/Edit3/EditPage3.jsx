@@ -9,6 +9,8 @@ import Spinner from "../../../components/spinner/Spinner";
 export default function EditPage3() {
 
     const [isLoading, setIsLoading] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState(0);
+    const [uploadMessage, setUploadMessage] = useState("업로드 준비 중...");
     
 	const { handleRoute } = useHandleRoute();
 	const location = useLocation();
@@ -45,6 +47,9 @@ export default function EditPage3() {
 
         try {
             setIsLoading(true);
+            setUploadProgress(0);
+            setUploadMessage("파일 업로드 중...");
+            
             const response = await uploadVideos(
                 subtitleChecked ? 1 : 0,
                 email,
@@ -53,15 +58,30 @@ export default function EditPage3() {
                 bgm,
                 color,
                 introTitle,
+                (progress) => {
+                    setUploadProgress(progress);
+                    if (progress < 100) {
+                        setUploadMessage(`파일 업로드 중... ${progress}%`);
+                    } else {
+                        setUploadMessage("처리 중...");
+                    }
+                }
             );
+            
             if (!response.success) {
                 console.error("업로드 실패", response.message);
                 alert(response.message);
                 setIsLoading(false);
                 return;
             }
-            alert(response.message);
-            handleRoute("/complete");
+            
+            setUploadProgress(100);
+            setUploadMessage("완료!");
+            
+            setTimeout(() => {
+                alert(response.message);
+                handleRoute("/complete");
+            }, 1000);
 
         } catch (error) {
             console.error("업로드 에러", error);
@@ -76,7 +96,7 @@ export default function EditPage3() {
 
 			{isLoading && (
 				<div className={styles.loadingOverlay}>
-					<Spinner />
+					<Spinner progress={uploadProgress} message={uploadMessage} />
 				</div>
 			)}
 
