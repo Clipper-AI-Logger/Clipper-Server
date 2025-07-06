@@ -1,11 +1,13 @@
-const AWS = require('aws-sdk');
+const { EC2Client, StartInstancesCommand, DescribeInstancesCommand } = require('@aws-sdk/client-ec2');
 
 class EC2Manager {
     
     constructor() {
-        this.ec2 = new AWS.EC2({
-            accessKeyId: process.env.AWS_EC2_ACCESS_KEY_ID,
-            secretAccessKey: process.env.AWS_EC2_SECRET_ACCESS_KEY,
+        this.ec2Client = new EC2Client({
+            credentials: {
+                accessKeyId: process.env.AWS_EC2_ACCESS_KEY_ID,
+                secretAccessKey: process.env.AWS_EC2_SECRET_ACCESS_KEY,
+            },
             region: process.env.AWS_EC2_REGION || process.env.AWS_REGION
         });
         this.instanceId = process.env.AWS_EC2_INSTANCE_ID;
@@ -25,7 +27,7 @@ class EC2Manager {
                     success: true,
                     state: statusResult.state,
                     instanceId: this.instanceId,
-                    region: this.ec2.config.region,
+                    region: this.ec2Client.config.region,
                     message: '인스턴스가 이미 실행 중입니다'
                 };
             }
@@ -36,7 +38,8 @@ class EC2Manager {
                 InstanceIds: [this.instanceId]
             };
 
-            const result = await this.ec2.startInstances(params).promise();
+            const command = new StartInstancesCommand(params);
+            const result = await this.ec2Client.send(command);
             const instance = result.StartingInstances[0];
             
             console.log('EC2 인스턴스 상태:', instance.CurrentState.Name);
@@ -44,14 +47,14 @@ class EC2Manager {
                 success: true,
                 state: instance.CurrentState.Name,
                 instanceId: this.instanceId,
-                region: this.ec2.config.region,
+                region: this.ec2Client.config.region,
                 message: '인스턴스 시작 요청 완료'
             };
         } catch (error) {
             console.error('[-]EC2 인스턴스 시작 실패:', error);
             if (error.code === 'InvalidInstanceID.NotFound') {
                 console.error('인스턴스 ID가 존재하지 않거나 현재 계정에서 접근할 수 없습니다.');
-                console.error('사용 중인 AWS 리전:', this.ec2.config.region);
+                console.error('사용 중인 AWS 리전:', this.ec2Client.config.region);
                 console.error('사용 중인 액세스 키:', process.env.AWS_EC2_ACCESS_KEY_ID);
             }
             throw new Error('EC2 인스턴스 시작 중 오류가 발생했습니다.');
@@ -64,7 +67,8 @@ class EC2Manager {
                 InstanceIds: [this.instanceId]
             };
 
-            const result = await this.ec2.describeInstances(params).promise();
+            const command = new DescribeInstancesCommand(params);
+            const result = await this.ec2Client.send(command);
             const instance = result.Reservations[0].Instances[0];
             
             return {

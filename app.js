@@ -22,19 +22,14 @@ app.use("/getResult", require("./src/routes/getResult-route.js"));
 async function startServer() {
     try {
         const s3Manager = new S3Manager();
-        const response = await s3Manager.s3.listObjectsV2({
-            Bucket: s3Manager.bucketName,
-            Prefix: 'uploadVideos/',
-            Delimiter: '/'
-        }).promise();
+        const files = await s3Manager.listFiles('uploadVideos/');
 
-        const files = response.Contents || [];
-        const fileNumbers = files
+        const fileNumbers = (files || [])
             .map(file => {
                 const match = file.Key.match(/uploadVideos\/(\d+)\.zip/);
-                return match ? parseInt(match[1]) : 0;
+                return match ? parseInt(match[1], 10) : null;
             })
-            .filter(num => !isNaN(num));
+            .filter(num => num !== null);
 
         currentFolderNumber = fileNumbers.length > 0 ? Math.max(...fileNumbers) : 0;
         

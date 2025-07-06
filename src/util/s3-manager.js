@@ -1,4 +1,5 @@
-const AWS = require('aws-sdk');
+const { S3Client, PutObjectCommand, DeleteObjectCommand, ListObjectsV2Command } = require('@aws-sdk/client-s3');
+const { Upload } = require("@aws-sdk/lib-storage");
 const fs = require('fs');
 const fsPromises = require('fs').promises;
 const path = require('path');
@@ -13,9 +14,11 @@ class S3Manager {
     }
 
     constructor() {
-        this.s3 = new AWS.S3({
-            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        this.s3Client = new S3Client({
+            credentials: {
+                accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+            },
             region: process.env.AWS_REGION
         });
         this.bucketName = process.env.AWS_S3_BUCKET;
@@ -66,14 +69,17 @@ class S3Manager {
             archive.directory(tempDir, false);
             await archive.finalize();
 
-            const uploadParams = {
-                Bucket: this.bucketName,
-                Key: folderPath + zipFileName,
-                Body: fs.createReadStream(zipFilePath),
-                ContentType: 'application/zip'
-            };
+            const upload = new Upload({
+                client: this.s3Client,
+                params: {
+                    Bucket: this.bucketName,
+                    Key: folderPath + zipFileName,
+                    Body: fs.createReadStream(zipFilePath),
+                    ContentType: 'application/zip'
+                }
+            });
 
-            const uploadResult = await this.s3.upload(uploadParams).promise();
+            const uploadResult = await upload.done();
             console.log('[+] S3 업로드 완료', uploadResult);
 
             await fsPromises.rm(tempDir, { recursive: true, force: true });
@@ -96,7 +102,7 @@ class S3Manager {
                 Bucket: this.bucketName,
                 Key: key
             };
-            await this.s3.deleteObject(params).promise();
+            await this.s3Client.send(new DeleteObjectCommand(params));
             return true;
         } catch (error) {
             console.error('[-] S3 파일 삭제 중 오류:', error);
@@ -110,7 +116,7 @@ class S3Manager {
                 Bucket: this.bucketName,
                 Prefix: prefix
             };
-            const data = await this.s3.listObjectsV2(params).promise();
+            const data = await this.s3Client.send(new ListObjectsV2Command(params));
             return data.Contents;
         } catch (error) {
             console.error('[-] S3 파일 목록 조회 중 오류:', error);
